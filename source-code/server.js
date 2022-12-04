@@ -1,15 +1,20 @@
 const express = require("express")
 const dotenv = require("dotenv")
 
-//Load env vars 
+
+// Route files
+const plants = require("./routes/plants")
+
+// Load env vars 
 dotenv.config({path: './config/config.env'})
 
 
 const app = express()
 
+// Mount routers
+app.use("/api/v1/plants", plants)
+
 const PORT = process.env.PORT || 5050
-
-
 
 app.listen(
     PORT, 
