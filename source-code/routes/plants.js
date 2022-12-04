@@ -14,7 +14,7 @@ router
     .get(getPlants)
     .post(createPlant)
 router
-    .route("/:id")
+    .route('/:id')
     .get(getPlant)
     .put(updatePlant)
     .delete(deletePlant)
