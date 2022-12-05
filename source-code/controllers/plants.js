@@ -1,3 +1,5 @@
+const Plant = require("../models/Plant")
+
 
 // @desc    Get all plants
 // @route   GET /api/v1/plants
@@ -16,8 +18,14 @@ exports.getPlant = (req, res, next) =>{
 // @desc    Create new plant
 // @route   GET /api/v1/plants
 // @access  Private
-exports.createPlant = (req, res, next) =>{
-    res.status(200).json({success: true, msg: "Create Plant"})
+exports.createPlant = async (req, res, next) =>{
+    try {
+        const plant = await  Plant.create(req.body)
+        res.status(201).json({success: true, data: plant})        
+    } catch (err) {
+        res.status(400).json({success: false, err: err.message})
+    }
+
 }
 
 // @desc    Update plant
