@@ -14,6 +14,7 @@ connectDB()
 
 // Route files
 const plants = require("./routes/plants")
+const auth = require("./routes/auth")
 
 
 const app = express()
@@ -27,13 +28,14 @@ if(process.env.NODE_ENV === 'development'){
 }
 
 // Mount routers
+app.use("/api/v1/auth", auth)
 app.use("/api/v1/plants", plants)
 
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 5050
 
-app.listen(
+const server = app.listen(
     PORT, 
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
 )

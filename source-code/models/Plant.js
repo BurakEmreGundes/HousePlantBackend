@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 const PlantSchema = new mongoose.Schema({
     plantCustomID:{
@@ -40,6 +41,12 @@ const PlantSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     } 
+})
+
+// Create plant slug from the name
+PlantSchema.pre('save', function(next){
+    this.slug = slugify(this.plantName,{lower:true})
+    next()
 })
 
 module.exports = mongoose.model("Plant", PlantSchema)
