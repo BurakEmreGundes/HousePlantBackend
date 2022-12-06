@@ -9,15 +9,17 @@ const {
 
 const router = express.Router()
 
+const {protect, authorize} = require('../middlewares/auth')
+
 router
     .route('/')
     .get(getPlants)
-    .post(createPlant)
+    .post(protect,authorize('admin'),createPlant)
 router
     .route('/:id')
     .get(getPlant)
-    .put(updatePlant)
-    .delete(deletePlant)
+    .put(protect,authorize('admin'),updatePlant)
+    .delete(protect,authorize('admin'),deletePlant)
 
     
 module.exports = router
