@@ -7,9 +7,17 @@ const {
     deletePlant
 } = require('../controllers/plants')
 
+// Include other resource routers
+const searchPlantsRouter = require('./searchPlants')
+
 const router = express.Router()
 
 const {protect, authorize} = require('../middlewares/auth')
+
+
+// Re-route into other resource routers
+router.use("/:plantId/searchPlants",searchPlantsRouter)
+
 
 router
     .route('/')

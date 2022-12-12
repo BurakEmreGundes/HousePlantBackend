@@ -43,6 +43,14 @@ const PlantSchema = new mongoose.Schema({
     } 
 })
 
+
+// Cascade delete search when a plant is deleted
+PlantSchema.pre('remove', async function (next) {
+    await this.model('searchPlant').deleteMany({ plant: this._id})
+    next()
+})
+
+
 // Create plant slug from the name
 PlantSchema.pre('save', function(next){
     this.slug = slugify(this.plantName,{lower:true})
